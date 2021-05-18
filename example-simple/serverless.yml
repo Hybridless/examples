@@ -1,0 +1,31 @@
+service: example
+plugins:
+  - '@hybridless/hybridless'
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'ca-central-1'}
+  memorySize: 512
+  timeout: 30
+  environment: ${file(env.yml):${self:custom.stage}}
+custom:
+  stage: ${self:provider.stage}
+hybridless:
+  disableWebpack: true
+  functions:
+    HTTPD:
+      vpc:
+        cidr: 10.0.0.0/16
+        subnets:
+          - 10.0.0.0/24
+          - 10.0.1.0/24
+      handler: src/handler.handler
+      memory: 512
+      timeout: 60
+      events:
+        - eventType: httpd
+          runtime: nodejs13
+          routes:
+            - method: ANY
+              path: "*"
