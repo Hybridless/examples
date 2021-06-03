@@ -12,10 +12,11 @@ build/*
 *.pbxuser
 *.xcworkspace
 xcuserdata
-
 # svn & cvs
 .svn
 CVS
-
+#
 */node_modules/
-
+*/.serverless/
+*/.webpack/
+.serverless
