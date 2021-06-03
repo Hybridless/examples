@@ -14,18 +14,29 @@ custom:
 hybridless:
   disableWebpack: true
   functions:
-    HTTPD:
+    HTTP:
       vpc:
         cidr: 10.0.0.0/16
         subnets:
           - 10.0.0.0/24
           - 10.0.1.0/24
       handler: src/handler.handler
-      memory: 512
+      memory: 1024
       timeout: 60
       events:
         - eventType: httpd
           runtime: nodejs13
+          routes:
+            - method: ANY
+              path: "*"
+    HTTP2: # as per issue #1 (not closed yet), hybridless rely on a Lambda function being created to use the IAM role and other hooks
+      handler: src/handler.handler
+      memory: ${self:provider.environment.TASK_MEM}
+      timeout: 60
+      events:
+        - eventType: lambda
+          runtime: nodejs12.x
+          protocol: http
           routes:
             - method: ANY
               path: "*"

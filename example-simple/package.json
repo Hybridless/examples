@@ -11,7 +11,7 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@hybridless/hybridless": "0.0.20",
+    "@hybridless/hybridless": "0.0.26",
     "serverless": "^2.41.2"
   }
 }
