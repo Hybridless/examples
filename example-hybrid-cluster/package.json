@@ -12,6 +12,6 @@
   "dependencies": {},
   "devDependencies": {
     "@hybridless/hybridless": "^0.0.30",
-    "serverless": "^2.41.2"
+    "serverless": "^3.25.1"
   }
 }
